@@ -133,5 +133,39 @@ namespace ECommerceAPI.DataAccess
             }
             return products;
         }
+
+        public Product GetProduct(int id)
+        {
+            var product = new Product();
+            using (SqlConnection connection = new(dbconnection))
+            {
+                SqlCommand command = new()
+                {
+                    Connection = connection
+                };
+
+                string query = "SELECT * FROM Products WHERE ProductId=" + id + ";";
+                command.CommandText = query;
+
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    product.Id = (int)reader["ProductId"];
+                    product.Title = (string)reader["Title"];
+                    product.Description = (string)reader["Description"];
+                    product.Price = (double)reader["Price"];
+                    product.Quantity = (int)reader["Quantity"];
+                    product.ImageName = (string)reader["ImageName"];
+
+                    var categoryid = (int)reader["CategoryId"];
+                    product.ProductCategory = GetProductCategory(categoryid);
+
+                    var offerid = (int)reader["OfferId"];
+                    product.Offer = GetOffer(offerid);
+                }
+            }
+            return product;
+        }
     }
 }
