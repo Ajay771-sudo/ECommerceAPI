@@ -1,4 +1,6 @@
-﻿namespace ECommerceAPI.Models
+﻿using ECommerceAPI.Models;
+
+namespace EcommerceAPI.Models
 {
     public class Product
     {

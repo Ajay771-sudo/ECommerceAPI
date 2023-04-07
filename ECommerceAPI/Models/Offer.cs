@@ -1,4 +1,4 @@
-﻿namespace ECommerceAPI.Models
+﻿namespace EcommerceAPI.Models
 {
     public class Offer
     {
